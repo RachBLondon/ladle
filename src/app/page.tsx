@@ -60,167 +60,131 @@ export default function Home() {
   };
 
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        
-        {/* Anam AI Video Section */}
-        <div className="w-full max-w-md mx-auto">
-          <h2 className="text-xl font-semibold mb-4 text-center">Chat with Alex - Your Carbonara Chef</h2>
-          <div className="relative bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
-            <video
-              ref={videoRef}
-              id="video-element-id"
-              autoPlay
-              playsInline
-              className="w-full h-64 object-cover"
-              style={{ display: (isLoading || !isChatActive) ? 'none' : 'block' }}
-            />
-            {!isChatActive && !isLoading && !error && (
-              <div className="w-full h-64 flex items-center justify-center">
-                <div className="text-center">
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                    Ready to learn how to make authentic Spaghetti Carbonara?
-                  </p>
-                  <button
-                    onClick={startChat}
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
-                  >
-                    Start Chat with Alex
-                  </button>
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-50 dark:from-gray-900 dark:to-gray-800">
+      <div className="container mx-auto px-4 py-8">
+        {/* Header */}
+        <header className="text-center mb-12">
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4">
+            🍝 Sous Chef
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Your AI-powered cooking assistant. Learn to make authentic Italian dishes with step-by-step guidance from Alex, your personal chef.
+          </p>
+        </header>
+
+        {/* Main Content */}
+        <main className="max-w-4xl mx-auto">
+          {/* AI Assistant Section */}
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-8">
+            <div className="text-center mb-6">
+              <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
+                Chat with Alex - Your Carbonara Chef
+              </h2>
+              <p className="text-gray-600 dark:text-gray-300">
+                Get personalized cooking guidance from an AI chef who specializes in authentic Italian cuisine
+              </p>
+            </div>
+            
+            <div className="relative bg-gray-100 dark:bg-gray-700 rounded-xl overflow-hidden">
+              <video
+                ref={videoRef}
+                id="video-element-id"
+                autoPlay
+                playsInline
+                className="w-full h-80 object-cover"
+                style={{ display: (isLoading || !isChatActive) ? 'none' : 'block' }}
+              />
+              {!isChatActive && !isLoading && !error && (
+                <div className="w-full h-80 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-6xl mb-4">👨‍🍳</div>
+                    <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
+                      Ready to learn how to make authentic Spaghetti Carbonara?
+                    </p>
+                    <button
+                      onClick={startChat}
+                      className="bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 px-8 rounded-xl transition-colors shadow-lg hover:shadow-xl"
+                    >
+                      Start Cooking with Alex
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
-            {isLoading && (
-              <div className="w-full h-64 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white mx-auto mb-2"></div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Connecting to Alex...</p>
+              )}
+              {isLoading && (
+                <div className="w-full h-80 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto mb-4"></div>
+                    <p className="text-lg text-gray-600 dark:text-gray-300">Connecting to Alex...</p>
+                  </div>
                 </div>
-              </div>
-            )}
-            {error && (
-              <div className="w-full h-64 flex items-center justify-center">
-                <div className="text-center text-red-600 dark:text-red-400">
-                  <p className="text-sm">Error: {error}</p>
-                  <p className="text-xs mt-1">Please check your API key configuration</p>
-                  <button
-                    onClick={startChat}
-                    className="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-1 px-3 rounded text-xs transition-colors"
-                  >
-                    Try Again
-                  </button>
+              )}
+              {error && (
+                <div className="w-full h-80 flex items-center justify-center">
+                  <div className="text-center text-red-600 dark:text-red-400">
+                    <div className="text-4xl mb-4">⚠️</div>
+                    <p className="text-lg mb-2">Error: {error}</p>
+                    <p className="text-sm mb-4">Please check your API key configuration</p>
+                    <button
+                      onClick={startChat}
+                      className="bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-6 rounded-lg transition-colors"
+                    >
+                      Try Again
+                    </button>
+                  </div>
                 </div>
+              )}
+            </div>
+            
+            {/* Control Buttons */}
+            {isChatActive && (
+              <div className="mt-6 flex justify-center">
+                <button
+                  onClick={stopChat}
+                  className="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-8 rounded-xl transition-colors shadow-lg hover:shadow-xl"
+                >
+                  Stop Chat
+                </button>
               </div>
             )}
           </div>
-          
-          {/* Control Buttons */}
-          {isChatActive && (
-            <div className="mt-4 flex justify-center gap-4">
-              <button
-                onClick={stopChat}
-                className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
-              >
-                Stop Chat
-              </button>
+
+          {/* Features Section */}
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+              <div className="text-3xl mb-3">🎯</div>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                Step-by-Step Guidance
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">
+                Get detailed instructions for each cooking step with helpful tips and techniques.
+              </p>
             </div>
-          )}
-        </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+              <div className="text-3xl mb-3">⏰</div>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                Perfect Timing
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">
+                Learn the crucial timing techniques that make authentic carbonara perfect every time.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+              <div className="text-3xl mb-3">🇮🇹</div>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                Authentic Italian
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">
+                Master traditional Roman techniques with cultural context and authentic methods.
+              </p>
+            </div>
+          </div>
+        </main>
 
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        {/* Footer */}
+        <footer className="text-center mt-12 text-gray-500 dark:text-gray-400">
+          <p>© 2024 Sous Chef - Your AI Cooking Companion</p>
+        </footer>
+      </div>
     </div>
   );
 }
