@@ -1,84 +1,63 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [anamClient, setAnamClient] = useState<any>(null);
+  const [isChatActive, setIsChatActive] = useState(false);
 
-  useEffect(() => {
-    const initializeAnamAI = async () => {
-      if (!videoRef.current) return;
+  const startChat = async () => {
+    if (!videoRef.current) return;
 
-      setIsLoading(true);
-      setError(null);
+    setIsLoading(true);
+    setError(null);
 
-      try {
-        // Create session token
-        const response = await fetch("https://api.anam.ai/v1/auth/session-token", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_ANAM_API_KEY}`,
-          },
-          body: JSON.stringify({
-            personaConfig: {
-              name: "Alex",
-              avatarId: "30fa96d0-26c4-4e55-94a0-517025942e18",
-              voiceId: "6bfbe25a-979d-40f3-a92b-5394170af54b",
-              llmId: "0934d97d-0c3a-4f33-91b0-5e136a0ef466",
-              systemPrompt: `You are Alex, an enthusiastic and knowledgeable cooking assistant specializing in Italian cuisine. You're here to guide users through making authentic Spaghetti Carbonara step by step.
+    try {
+      // Get session token from our backend API
+      const response = await fetch("/api/session-token", {
+        method: "POST",
+      });
 
-Your role is to:
-- Be encouraging and supportive throughout the cooking process
-- Explain each step clearly with helpful tips and techniques
-- Warn about common mistakes (like scrambling the eggs)
-- Provide timing guidance and visual cues
-- Share the cultural background and authenticity of the dish
-- Be patient with beginners and celebrate their progress
-
-Key Carbonara knowledge to share:
-- This is a traditional Roman dish with simple, quality ingredients
-- The magic happens when you combine hot pasta with the egg mixture OFF the heat
-- Pancetta should be crispy, and the sauce should be creamy, not scrambled
-- Freshly grated pecorino and parmesan are essential
-- Timing is crucial - work quickly when combining the final ingredients
-
-When users ask about the recipe, guide them through these steps:
-1. Boil water and prep ingredients (pancetta, cheese, eggs)
-2. Cook pasta al dente while frying pancetta with garlic
-3. Combine everything off the heat to create the creamy sauce
-4. Serve immediately with extra cheese and black pepper
-
-Always be encouraging, explain the "why" behind each step, and help users feel confident in their cooking abilities.`,
-            },
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error(`Failed to create session token: ${response.statusText}`);
-        }
-
-        const { sessionToken } = await response.json();
-
-        // Import and create Anam client
-        const { createClient } = await import("@anam-ai/js-sdk");
-        const anamClient = createClient(sessionToken);
-
-        // Stream to video element
-        await anamClient.streamToVideoElement(videoRef.current.id);
-      } catch (err) {
-        console.error("Error initializing Anam AI:", err);
-        setError(err instanceof Error ? err.message : "Failed to initialize Anam AI");
-      } finally {
-        setIsLoading(false);
+      if (!response.ok) {
+        throw new Error(`Failed to create session token: ${response.statusText}`);
       }
-    };
 
-    initializeAnamAI();
-  }, []);
+      const { sessionToken } = await response.json();
+
+      // Import and create Anam client
+      const { createClient } = await import("@anam-ai/js-sdk");
+      const client = createClient(sessionToken);
+
+      // Start streaming to the video element
+      await client.streamToVideoElement(videoRef.current.id);
+
+      setAnamClient(client);
+      setIsChatActive(true);
+    } catch (err) {
+      console.error("Error starting chat:", err);
+      setError(err instanceof Error ? err.message : "Failed to start chat");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const stopChat = () => {
+    if (anamClient) {
+      // Disconnect the client
+      anamClient.stopStreaming();
+      setAnamClient(null);
+      setIsChatActive(false);
+
+      // Clear video element
+      if (videoRef.current) {
+        videoRef.current.srcObject = null;
+      }
+    }
+  };
 
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
@@ -94,7 +73,7 @@ Always be encouraging, explain the "why" behind each step, and help users feel c
         
         {/* Anam AI Video Section */}
         <div className="w-full max-w-md mx-auto">
-          <h2 className="text-xl font-semibold mb-4 text-center">AI Assistant</h2>
+          <h2 className="text-xl font-semibold mb-4 text-center">Chat with Alex - Your Carbonara Chef</h2>
           <div className="relative bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
             <video
               ref={videoRef}
@@ -102,13 +81,28 @@ Always be encouraging, explain the "why" behind each step, and help users feel c
               autoPlay
               playsInline
               className="w-full h-64 object-cover"
-              style={{ display: isLoading ? 'none' : 'block' }}
+              style={{ display: (isLoading || !isChatActive) ? 'none' : 'block' }}
             />
+            {!isChatActive && !isLoading && !error && (
+              <div className="w-full h-64 flex items-center justify-center">
+                <div className="text-center">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                    Ready to learn how to make authentic Spaghetti Carbonara?
+                  </p>
+                  <button
+                    onClick={startChat}
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+                  >
+                    Start Chat with Alex
+                  </button>
+                </div>
+              </div>
+            )}
             {isLoading && (
               <div className="w-full h-64 flex items-center justify-center">
                 <div className="text-center">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 dark:border-white mx-auto mb-2"></div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Loading AI Assistant...</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">Connecting to Alex...</p>
                 </div>
               </div>
             )}
@@ -117,10 +111,28 @@ Always be encouraging, explain the "why" behind each step, and help users feel c
                 <div className="text-center text-red-600 dark:text-red-400">
                   <p className="text-sm">Error: {error}</p>
                   <p className="text-xs mt-1">Please check your API key configuration</p>
+                  <button
+                    onClick={startChat}
+                    className="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-1 px-3 rounded text-xs transition-colors"
+                  >
+                    Try Again
+                  </button>
                 </div>
               </div>
             )}
           </div>
+          
+          {/* Control Buttons */}
+          {isChatActive && (
+            <div className="mt-4 flex justify-center gap-4">
+              <button
+                onClick={stopChat}
+                className="bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+              >
+                Stop Chat
+              </button>
+            </div>
+          )}
         </div>
 
         <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
