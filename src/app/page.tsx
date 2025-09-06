@@ -68,7 +68,7 @@ export default function Home() {
             🍝 Sous Chef
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Your AI-powered cooking assistant. Learn to make authentic Italian dishes with step-by-step guidance from Alex, your personal chef.
+            Your AI-powered cooking assistant. Learn to make delicious dishes with step-by-step guidance from Alex, your personal chef.
           </p>
         </header>
 
@@ -78,10 +78,10 @@ export default function Home() {
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-8">
             <div className="text-center mb-6">
               <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">
-                Chat with Alex - Your Carbonara Chef
+                Chat with Alex - Your Personal Chef
               </h2>
               <p className="text-gray-600 dark:text-gray-300">
-                Get personalized cooking guidance from an AI chef who specializes in authentic Italian cuisine
+                Get personalized cooking guidance from an AI chef who can help you master any recipe
               </p>
             </div>
             
@@ -99,7 +99,7 @@ export default function Home() {
                   <div className="text-center">
                     <div className="text-6xl mb-4">👨‍🍳</div>
                     <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-                      Ready to learn how to make authentic Spaghetti Carbonara?
+                      Ready to start cooking with personalized guidance?
                     </p>
                     <button
                       onClick={startChat}
@@ -148,36 +148,6 @@ export default function Home() {
             )}
           </div>
 
-          {/* Features Section */}
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-              <div className="text-3xl mb-3">🎯</div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                Step-by-Step Guidance
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
-                Get detailed instructions for each cooking step with helpful tips and techniques.
-              </p>
-            </div>
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-              <div className="text-3xl mb-3">⏰</div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                Perfect Timing
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
-                Learn the crucial timing techniques that make authentic carbonara perfect every time.
-              </p>
-            </div>
-            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-              <div className="text-3xl mb-3">🇮🇹</div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                Authentic Italian
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
-                Master traditional Roman techniques with cultural context and authentic methods.
-              </p>
-            </div>
-          </div>
         </main>
 
         {/* Footer */}
