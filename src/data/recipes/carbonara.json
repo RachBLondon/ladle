@@ -1,126 +1,35 @@
 [
-    {
-      "recipeId": "spaghetti-carbonara",
-      "title": "Spaghetti Carbonara",
-      "servings": 4,
-      "estimateMins": 30,
-      "image": "/images/spaghetti-carbonara.jpg",
-      "tags": ["italian", "pasta"],
-      "nutritionPerServing": { "kcal": 620 },
-      "ingredients": [
-        { "qty": 100, "unit": "g", "name": "pancetta" },
-        { "qty": 50, "unit": "g", "name": "pecorino cheese" },
-        { "qty": 50, "unit": "g", "name": "parmesan" },
-        { "qty": 3, "unit": "pcs", "name": "eggs (large)" },
-        { "qty": 350, "unit": "g", "name": "spaghetti" },
-        { "qty": 2, "unit": "clove", "name": "garlic, peeled, whole" },
-        { "qty": 50, "unit": "g", "name": "unsalted butter" },
-        { "name": "sea salt and freshly ground black pepper" }
-      ],
-      "steps": [
-        { "id": 1, "text": "Put a large saucepan of water on to boil.", "type": "prep", "produces": ["boiling_water"] },
-        { "id": 2, "text": "Finely chop pancetta. Grate pecorino and parmesan; mix together.", "type": "prep", "produces": ["chopped_pancetta", "mixed_cheeses"] },
-        { "id": 3, "text": "Beat eggs in a bowl; season with black pepper.", "type": "prep", "produces": ["egg_mix"] },
-        { "id": 4, "text": "Salt boiling water (1 tsp). Add spaghetti; cook until al dente.", "type": "active", "depends_on": ["boiling_water"], "timer": { "secs": 600, "kind": "countdown" }, "is_passive_timer": true, "produces": ["cooked_pasta"], "suggest_during": [5, 6], "resources": { "hob_burner": 1 } },
-        { "id": 5, "text": "Bruise garlic cloves.", "type": "prep" },
-        { "id": 6, "text": "Melt butter; fry pancetta with garlic until golden and crisp.", "type": "active", "timer": { "secs": 300, "kind": "countdown" }, "depends_on": ["chopped_pancetta"], "produces": ["crispy_pancetta"], "resources": { "hob_burner": 1 } },
-        { "id": 7, "text": "Remove garlic; keep pancetta on low heat.", "type": "passive" },
-        { "id": 8, "text": "Transfer pasta to pancetta pan; keep some pasta water.", "type": "active", "depends_on": ["cooked_pasta", "crispy_pancetta"], "produces": ["pasta_with_pancetta"] },
-        { "id": 9, "text": "Mix most cheese into the egg mixture.", "type": "prep", "depends_on": ["egg_mix", "mixed_cheeses"], "produces": ["egg_cheese_mix"] },
-        { "id": 10, "text": "Off heat: pour egg/cheese into pasta; toss until glossy (not scrambled).", "type": "active", "depends_on": ["egg_cheese_mix", "pasta_with_pancetta"] },
-        { "id": 11, "text": "Loosen with pasta water if needed; season to taste.", "type": "active" },
-        { "id": 12, "text": "Plate up; top with remaining cheese and black pepper; serve immediately.", "type": "serve" }
-      ]
-    },
-    {
-      "recipeId": "shakshuka",
-      "title": "Shakshuka",
-      "servings": 2,
-      "estimateMins": 35,
-      "image": "/images/shakshuka.jpg",
-      "tags": ["middle-eastern", "eggs", "one-pan"],
-      "nutritionPerServing": { "kcal": 420 },
-      "ingredients": [
-        { "qty": 2, "unit": "tbsp", "name": "olive oil" },
-        { "qty": 1, "unit": "pcs", "name": "onion, diced" },
-        { "qty": 1, "unit": "pcs", "name": "red pepper, diced" },
-        { "qty": 3, "unit": "clove", "name": "garlic, minced" },
-        { "qty": 1, "unit": "tsp", "name": "ground cumin" },
-        { "qty": 1, "unit": "tsp", "name": "sweet paprika" },
-        { "qty": 0.25, "unit": "tsp", "name": "chili flakes" },
-        { "qty": 400, "unit": "g", "name": "canned chopped tomatoes" },
-        { "qty": 4, "unit": "pcs", "name": "eggs" },
-        { "name": "salt and black pepper" },
-        { "qty": 2, "unit": "tbsp", "name": "parsley, chopped (optional)" },
-        { "qty": 40, "unit": "g", "name": "feta, crumbled (optional)" }
-      ],
-      "steps": [
-        { "id": 1, "text": "Dice onion and red pepper; mince garlic.", "type": "prep", "produces": ["chopped_veg", "minced_garlic"] },
-        { "id": 2, "text": "Heat oil; soften onion and pepper.", "type": "active", "depends_on": ["chopped_veg"], "timer": { "secs": 480, "kind": "countdown" }, "resources": { "hob_burner": 1 } },
-        { "id": 3, "text": "Add garlic and spices; cook until fragrant.", "type": "active", "depends_on": ["minced_garlic"], "timer": { "secs": 60, "kind": "countdown" }, "resources": { "hob_burner": 1 } },
-        { "id": 4, "text": "Add tomatoes; simmer until slightly thickened.", "type": "active", "timer": { "secs": 600, "kind": "countdown" }, "is_passive_timer": true, "produces": ["simmered_sauce"], "suggest_during": [5], "resources": { "hob_burner": 1 } },
-        { "id": 5, "text": "Prep toppings: chop parsley, crumble feta, crack eggs into cups.", "type": "prep", "produces": ["toppings_ready", "eggs_ready"] },
-        { "id": 6, "text": "Make wells; add eggs; cover and cook until whites set, yolks runny.", "type": "active", "depends_on": ["simmered_sauce"], "timer": { "secs": 360, "kind": "countdown" }, "resources": { "hob_burner": 1 } },
-        { "id": 7, "text": "Season; top with parsley and feta; serve warm.", "type": "serve" }
-      ]
-    },
-    {
-      "recipeId": "tofu-broccoli-stirfry-rice",
-      "title": "Tofu & Broccoli Stir-Fry with Rice",
-      "servings": 2,
-      "estimateMins": 25,
-      "image": "/images/tofu-broccoli-stirfry.jpg",
-      "tags": ["vegan", "stir-fry", "quick"],
-      "nutritionPerServing": { "kcal": 550 },
-      "ingredients": [
-        { "qty": 150, "unit": "g", "name": "jasmine rice" },
-        { "qty": 400, "unit": "g", "name": "firm tofu, drained" },
-        { "qty": 250, "unit": "g", "name": "broccoli florets" },
-        { "qty": 3, "unit": "tbsp", "name": "soy sauce" },
-        { "qty": 1, "unit": "tbsp", "name": "cornstarch" },
-        { "qty": 2, "unit": "clove", "name": "garlic, minced" },
-        { "qty": 1, "unit": "tsp", "name": "fresh ginger, grated" },
-        { "qty": 1, "unit": "tbsp", "name": "neutral oil" },
-        { "name": "sesame seeds or spring onion (optional)" }
-      ],
-      "steps": [
-        { "id": 1, "text": "Start rice: bring to boil, then cover and simmer until tender.", "type": "active", "timer": { "secs": 720, "kind": "countdown" }, "is_passive_timer": true, "produces": ["cooked_rice"], "suggest_during": [2, 3, 4], "resources": { "hob_burner": 1 } },
-        { "id": 2, "text": "Press and cube tofu.", "type": "prep", "produces": ["cubed_tofu"] },
-        { "id": 3, "text": "Mix soy and cornstarch; toss tofu to coat.", "type": "prep", "depends_on": ["cubed_tofu"], "produces": ["coated_tofu"] },
-        { "id": 4, "text": "Prep broccoli; mince garlic and grate ginger.", "type": "prep", "produces": ["broccoli_prepped", "aromatics"] },
-        { "id": 5, "text": "Heat oil in wok; fry tofu until crisp.", "type": "active", "depends_on": ["coated_tofu"], "timer": { "secs": 300, "kind": "countdown" }, "resources": { "hob_burner": 1 } },
-        { "id": 6, "text": "Add broccoli and aromatics; stir-fry until bright and tender-crisp.", "type": "active", "depends_on": ["broccoli_prepped", "aromatics"], "timer": { "secs": 240, "kind": "countdown" }, "resources": { "hob_burner": 1 } },
-        { "id": 7, "text": "Splash soy/water; toss 1 minute to glaze.", "type": "active", "timer": { "secs": 60, "kind": "countdown" }, "resources": { "hob_burner": 1 } },
-        { "id": 8, "text": "Serve stir-fry over rice; garnish if using.", "type": "serve", "depends_on": ["cooked_rice"] }
-      ]
-    },
-    {
-      "recipeId": "fluffy-pancakes",
-      "title": "Fluffy Pancakes",
-      "servings": 3,
-      "estimateMins": 25,
-      "image": "/images/pancakes.jpg",
-      "tags": ["breakfast", "quick"],
-      "nutritionPerServing": { "kcal": 480 },
-      "ingredients": [
-        { "qty": 150, "unit": "g", "name": "plain flour" },
-        { "qty": 1, "unit": "tbsp", "name": "sugar" },
-        { "qty": 2, "unit": "tsp", "name": "baking powder" },
-        { "qty": 1, "unit": "pinch", "name": "salt" },
-        { "qty": 1, "unit": "pcs", "name": "egg" },
-        { "qty": 250, "unit": "ml", "name": "milk" },
-        { "qty": 2, "unit": "tbsp", "name": "melted butter or oil" },
-        { "name": "oil for pan + toppings (optional)" }
-      ],
-      "steps": [
-        { "id": 1, "text": "Whisk flour, sugar, baking powder, and salt.", "type": "prep", "produces": ["dry_mix"] },
-        { "id": 2, "text": "Whisk egg, milk, and melted butter.", "type": "prep", "produces": ["wet_mix"] },
-        { "id": 3, "text": "Combine wet into dry just until incorporated (do not overmix).", "type": "prep", "depends_on": ["dry_mix", "wet_mix"], "produces": ["batter"] },
-        { "id": 4, "text": "Rest batter.", "type": "passive", "depends_on": ["batter"], "timer": { "secs": 600, "kind": "countdown" }, "is_passive_timer": true, "suggest_during": [5] },
-        { "id": 5, "text": "Preheat lightly oiled pan over medium heat.", "type": "active", "resources": { "hob_burner": 1 } },
-        { "id": 6, "text": "Cook pancakes in batches: pour batter; cook until bubbles form and edges set, flip and cook through (about 2–3 min per side).", "type": "active", "depends_on": ["batter"], "resources": { "hob_burner": 1 } },
-        { "id": 7, "text": "Serve warm with toppings.", "type": "serve" }
-      ]
-    }
-  ]
-  
+  {
+    "recipeId": "spaghetti-carbonara",
+    "title": "Spaghetti Carbonara",
+    "servings": 4,
+    "estimateMins": 30,
+    "image": "/images/spaghetti-carbonara.jpg",
+    "tags": ["italian", "pasta"],
+    "nutritionPerServing": { "kcal": 620 },
+    "ingredients": [
+      { "qty": 100, "unit": "g", "name": "pancetta" },
+      { "qty": 50, "unit": "g", "name": "pecorino cheese" },
+      { "qty": 50, "unit": "g", "name": "parmesan" },
+      { "qty": 3, "unit": "pcs", "name": "eggs (large)" },
+      { "qty": 350, "unit": "g", "name": "spaghetti" },
+      { "qty": 2, "unit": "clove", "name": "garlic, peeled, whole" },
+      { "qty": 50, "unit": "g", "name": "unsalted butter" },
+      { "name": "sea salt and freshly ground black pepper" }
+    ],
+    "steps": [
+      { "id": 1, "text": "Put a large saucepan of water on to boil.", "type": "prep", "produces": ["boiling_water"] },
+      { "id": 2, "text": "Finely chop pancetta. Grate pecorino and parmesan; mix together.", "type": "prep", "produces": ["chopped_pancetta", "mixed_cheeses"] },
+      { "id": 3, "text": "Beat eggs in a bowl; season with black pepper.", "type": "prep", "produces": ["egg_mix"] },
+      { "id": 4, "text": "Salt boiling water (1 tsp). Add spaghetti; cook until al dente.", "type": "active", "depends_on": ["boiling_water"], "timer": { "secs": 600, "kind": "countdown" }, "is_passive_timer": true, "produces": ["cooked_pasta"], "suggest_during": [5, 6], "resources": { "hob_burner": 1 } },
+      { "id": 5, "text": "Bruise garlic cloves.", "type": "prep" },
+      { "id": 6, "text": "Melt butter; fry pancetta with garlic until golden and crisp.", "type": "active", "timer": { "secs": 300, "kind": "countdown" }, "depends_on": ["chopped_pancetta"], "produces": ["crispy_pancetta"], "resources": { "hob_burner": 1 } },
+      { "id": 7, "text": "Remove garlic; keep pancetta on low heat.", "type": "passive" },
+      { "id": 8, "text": "Transfer pasta to pancetta pan; keep some pasta water.", "type": "active", "depends_on": ["cooked_pasta", "crispy_pancetta"], "produces": ["pasta_with_pancetta"] },
+      { "id": 9, "text": "Mix most cheese into the egg mixture.", "type": "prep", "depends_on": ["egg_mix", "mixed_cheeses"], "produces": ["egg_cheese_mix"] },
+      { "id": 10, "text": "Off heat: pour egg/cheese into pasta; toss until glossy (not scrambled).", "type": "active", "depends_on": ["egg_cheese_mix", "pasta_with_pancetta"] },
+      { "id": 11, "text": "Loosen with pasta water if needed; season to taste.", "type": "active" },
+      { "id": 12, "text": "Plate up; top with remaining cheese and black pepper; serve immediately.", "type": "serve" }
+    ]
+  }
+]
